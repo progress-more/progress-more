@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vue实现组件缓存 | Hexo</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="vue实现组件缓存 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/default-avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/default-avatar.jpg" />
+</a>
+<div class="author">
+    <span>John Doe</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/progress-more" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(4)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="4">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/progress-more">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2017/06/01/codeCouple/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="codeCouple">codeCouple</span>
+            <span class="post-date" title="2017-06-01 13:29:28">2017/06/01</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/11/07/vue%E4%B8%AD%E7%9A%84-set/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vue中的$set">vue中的$set</span>
+            <span class="post-date" title="2017-11-07 10:42:35">2017/11/07</span>
+        </a>
+        
+        <a  class=""
+           href="/2017/02/05/%E5%B8%B8%E7%94%A8%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用数组方法">常用数组方法</span>
+            <span class="post-date" title="2017-02-05 10:28:26">2017/02/05</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/03/15/vue%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E7%BC%93%E5%AD%98/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vue实现组件缓存">vue实现组件缓存</span>
+            <span class="post-date" title="2018-03-15 15:55:25">2018/03/15</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-vue实现组件缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">vue实现组件缓存</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-01-07 12:04:46'>2018-03-15 15:55</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue实现组件缓存"><span class="toc-text">Vue实现组件缓存</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Vue实现组件缓存"><a href="#Vue实现组件缓存" class="headerlink" title="Vue实现组件缓存"></a>Vue实现组件缓存</h1><p>keep-alive是vue内置的一个组件，可以使被它包含的组件处于保留状态，或避免被重新渲染。</p>
+<p>用法:<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308161801138-1593275993.png" alt="img"><br>运行结果描述：<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308161825140-824126357.png" alt="img"><br>input输入框内，路由切换输入框内部的内容不会发生改变。<br>在keep-alive标签内部添加</p>
+<p>include：字符串或正则表达式。只有匹配的组件会被缓存</p>
+<p>exclude： 字符串或正则表达式。任何匹配的组件都不会被缓存。<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308161903261-286357565.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308164323560-1446188047.png" alt="img"><br>结合router缓存部分页面：<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308164353442-1577233559.png" alt="img"><br>比较实用的例子：<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308164411754-1567799332.png" alt="img"><br>思路：通过beforeRouterLeave这个钩子来对路由里面的keepAlive进行赋值。从而动态的确定A页面是否需要被缓存。<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308164436206-1782478768.png" alt="img"><br>以上转载自：<a href="https://blog.csdn.net/qq_38614249/article/details/79468609" target="_blank" rel="noopener">https://blog.csdn.net/qq_38614249/article/details/79468609</a><br>【Vue】Vue2.0页面缓存和不缓存的方法，以及watch监听会遇到的问题vue2.0页面<br>缓存和不缓存的方法：<br>1、在app中设置需要缓存的div</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;keep-alive&gt;&#x2F;&#x2F;缓存的页面</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">   &lt;router-view v-if&#x3D;&quot;$route.meta.keepAlive&quot;&gt;&lt;&#x2F;router-view&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;keep-alive&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;router-view v-if&#x3D;&quot;!$route.meta.keepAlive&quot;&gt;&lt;&#x2F;router-view&gt;&#x2F;&#x2F;不缓存的页面</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">2、在路由router.js中设置.vue页面是否需要缓存</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">   path: &#39;&#x2F;home&#39;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">   component: home,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">   meta: &#123; keepAlive: true &#125;,&#x2F;&#x2F;当前的.vue文件需要缓存</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">   path: &#39;&#x2F;notice&#39;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">   component: notice,&#x2F;&#x2F;当前页面不需要缓存</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">3、从缓存页面跳转到不缓存页面，或者从不缓存页面跳转到缓存页面的时候，会发现watch是不能监听路由的，是因为缓存和不缓存页面分别在不同的div里面，一个div里面是不可能监听到另一个div的路由的，所有需要把监听的路由都加上缓存（在路由添加 meta: &#123; keepAlive: true &#125;），路由在缓存页面之间进行跳转的时候，就可以通过监听路由来进行判断数据是否需要更新。</span></pre></td></tr></table></figure>
+
+<p>vue中前进刷新、后退缓存用户浏览数据和浏览位置的实践<br>vue中，我们所要实现的一个场景就是：</p>
+<p>1.搜索页面==&gt;到搜索结果页时，搜索结果页面要重新获取数据，</p>
+<p>2.搜索结果页面==&gt;点击进入详情页==&gt;从详情页返回列表页时，要保存上次已经加载的数据和自动还原上次的浏览位置。</p>
+<p>最近在项目中遇到这个问题，思考了几套方案，总是不太完善。百度搜到的方案也基本都只能满足一些很简单的需求。对于复杂一些的情况，还是有些不完善的地方。以下是个人对于这种场景的一个摸索，也参考了百度。如有更好的方案，欢迎指出。</p>
+<p>缓存组件，vue2中提供了keep-alive。首先在我们的app.vue中定义keep-alive:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;keep-alive&gt;      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    &lt;router-view v-if&#x3D;&quot;$route.meta.keepAlive&quot;&#x2F;&gt;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;keep-alive&gt;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;router-view v-if&#x3D;&quot;!$route.meta.keepAlive&quot;&#x2F;&gt;</span></pre></td></tr></table></figure>
+
+<p>这里是根据路由中的meta源信息中的keepAlive字段来判断当前路由组件是否需要缓存。这里的meta的keepAlive是我们自定义的，当然你也可以叫别的名字。</p>
+<p>下面在router/index.js即我们的路由文件中，定义meta信息：</p>
+<p>// list是我们的搜索结果页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#123;      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    path: &#39;&#x2F;list&#39;,  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    name: &#39;List&#39;,      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    component: resolve &#x3D;&gt; require([&#39;@&#x2F;pages&#x2F;list&#39;], resolve),    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    meta: &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        isUseCache: false,  &#x2F;&#x2F; 这个字段的意思稍后再说      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        keepAlive: true  &#x2F;&#x2F; 通过此字段判断是否需要缓存当前组件  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure>
+
+<p>上面的component: resolve =&gt; require([‘@/pages/list’], resolve)这里的组件引入方式可能和大家平时写的有些不一样，这里是为了路由的懒加载用的，大家可以忽略。按照正常的import引入也可以，这个和本次的主题无关。如此一来，vue的路由会帮我们去缓存list页面。</p>
+<p>刷新数据or缓存数据的实现：<br>说这之前，先简单说一下和缓存相关的vue钩子函数。</p>
+<p>设置了keepAlive缓存的组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">第一次进入：beforeRouterEnter -&gt;created-&gt;…-&gt;activated-&gt;…-&gt;deactivated</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">后续进入时：beforeRouterEnter -&gt;activated-&gt;deactivated</span></pre></td></tr></table></figure>
+
+<p>可以看出，只有第一次进入该组件时，才会走created钩子，而需要缓存的组件中activated是每次都会走的钩子函数。所以，我们要在这个钩子里面去判断，当前组件是需要使用缓存的数据还是重新刷新获取数据。思路有了，下面我们来实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; list组价的activated钩子</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> activated() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; isUseCache为false时才重新刷新获取数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; 因为对list使用keep-alive来缓存组件，所以默认是会使用缓存数据的         </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    if(!this.$route.meta.isUseCache)&#123;            </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        this.list &#x3D; []; &#x2F;&#x2F; 清空原有数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        this.onLoad(); &#x2F;&#x2F; 这是我们获取数据的函数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure>
+
+<p>这里的isUseCache 其实就是我们用来判断是否需要使用缓存数据的字段，我们在list的路由的meta中已经默认设置为false，所以第一次进入list时是获取数据的。</p>
+<p>当我们从详情页返回时，我们把list页面路由的isUseCache设置成true，这样我们在返回list页面时会使用缓存数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 详情页面的beforeRouteLeave钩子函数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    if (to.name &#x3D;&#x3D; &#39;List&#39;) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        to.meta.isUseCache &#x3D; true;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#125;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    next();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure>
+
+<p>我们这里是在即将离开detail页面前判断是否返回的列表页。如果是返回list页面，则把list页面路由的isUseCache字段设置成true。为什么这样设置呢？因为我们对list组件使用的keep-alive进行缓存组件，其默认就是使用缓存的。而我们又在list组件的actived钩子函数中进行了判断：只有在list页面的isUseCache==false时才会清空原有数据并重新获取数据。所以此处设置isUseCache为true，此时返会list页面是不会重新获取数据的，而是使用的缓存数据。</p>
+<p>detail返回list可以缓存数据了，那么search前往list页面时怎么让list页面不使用缓存数据而是获取新数据呢？我们重新回到list的activated钩子中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; list组价的activated钩子</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> activated() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; isUseCache为false时才重新刷新获取数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; 因为对list使用keep-alive来缓存组件，所以默认是会使用缓存数据的         </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    if(!this.$route.meta.isUseCache)&#123;            </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        this.list &#x3D; []; &#x2F;&#x2F; 清空原有数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        this.onLoad(); &#x2F;&#x2F; 这是我们获取数据的函数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        this.$route.meta.isUseCache &#x3D; false;    &#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure>
+
+<p>我们加了一行this.$route.meta.isUseCache=false;也就是从detail返回list后，将list的isUseCache字段为false，而从detail返回list前，我们设置了list的isUseCache为true。所以，只有从detail返回list才使用缓存数据，而其他页面进入list是重新刷新数据的。</p>
+<p>至此，一个前进刷新、后退返回的功能基本完成了。</p>
+<p>如果场景再复杂一丢丢，比如，如果这个详情页是个订单详情，那么在订单详情页可能会有删除订单的操作。那么删除订单操作后会返回订单列表页，是需要列表页重新刷新的。那么我们需要此时在订单详情页进行是否要刷新的判断。简单改造一下详情页：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">data () &#123;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    return &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        isDel: false  &#x2F;&#x2F; 是否进行了删除订单的操作       </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    if (to.name &#x3D;&#x3D; &#39;List&#39;) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F; 根据是否删除了订单的状态，进行判断list是否需要使用缓存数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        to.meta.isUseCache &#x3D; !this.isDel;                </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    next();    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">methods: &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    deleteOrder () &#123;       </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F; 这里是一些删除订单的操作</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F; 将状态变为已删除订单</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F; 所以beforeRouteLeave钩子中就会将list组件路由的isUseCache设置为false    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F; 所以此时再返回list时，list是会重新刷新数据的 </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        this.isDel &#x3D; true; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        this.$router.go(-1)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>至此，算是解决了我的vue项目中的这个前进刷新、后退缓存数据和浏览位置的问题。</p>
+<p>最后再提一下，页面滚动位置的问题。</p>
+<p>问题1：我们知道，在vue这种单页应用中，如果你在a页面滚动了一段距离后，此时前往b页面后，b页面也会停留在a页面的滚动位置。这个问题的解决，我们可以利用router本身提供的功能来解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">routes: [    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    &#123;      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        path: &#39;&#x2F;detail&#39;,      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        name: &#39;Detail&#39;,      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        component: resolve &#x3D;&gt; require([&#39;@&#x2F;pages&#x2F;detail&#39;], resolve)    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">scrollBehavior (to, from, savedPosition) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    if (savedPosition) &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">          return savedPosition    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125; else &#123;      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">          if (from.meta.keepAlive) &#123;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">               from.meta.savedPosition &#x3D; document.body.scrollTop;      </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">          &#125;        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">          return &#123; x: 0, y: to.meta.savedPosition || 0 &#125;    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    &#125;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>scrollBehavior是路由提供的基础功能，这段函数写的是：</p>
+<p>1.如果通过浏览器自带的前进后退按钮切换的路由，那么会自动使用浏览默认的回滚上次页面的浏览位置。</p>
+<p>2.如果是通过vue路由进行的页面切换。例如a前往b，首先判断a是不是通过keep-alive缓存的组件，如果是，则在a路由的meta中添加一个savedPosition字段，并且值为a的滚动位置。最后return的是页面需要回滚的位置。如此一来，如果打开一个页面，该页面的组件路由中meta.savedPosition为undefined的话，则页面滚动到（0,0）的位置，这样解决了问题1。那么如果打开一个页面，它的路由的meta.savedPosition有值的话，则滚动到上次浏览的位置，因为meta.savedPosition保存的就是上次浏览的位置。<br>vue中,在本地缓存中读写数据的方法<br>1.安装good-storage插件<br>cnpm i good-storage –save<br>2.读/写的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">common&#x2F;js&#x2F;cache.js:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import storage from &#39;good-storage&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">const SEARCH_KEY &#x3D; &#39;__search__&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">const SEARCH_MAX_LENGTH &#x3D; 15</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; compare:findindex传入的是function,所以不能直接传val</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">function insertArray(arr, val, compare, maxLen) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  const index &#x3D; arr.findIndex(compare)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  if (index &#x3D;&#x3D;&#x3D; 0) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    return</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  if (index &gt; 0) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    arr.splice(index, 1)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">  arr.unshift(val) &#x2F;&#x2F; 插入到数组最前</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">  if (maxLen &amp;&amp; arr.length &gt; maxLen) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    arr.pop() &#x2F;&#x2F; 删除末位元素</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 存储搜索历史</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">export function saveSearch(query) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">  let searches &#x3D; storage.get(SEARCH_KEY, [])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">  insertArray(searches, query, (item) &#x3D;&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    return item &#x3D;&#x3D;&#x3D; query</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">  &#125;, SEARCH_MAX_LENGTH)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">  storage.set(SEARCH_KEY, searches)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">  return searches</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 加载本地缓存的搜索历史</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">export function loadSearch() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">  return storage.get(SEARCH_KEY, [])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>3.数据用vuex传递<br>在store/actions.js中写入数据:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import * as types from &#39;.&#x2F;mutation-types&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import &#123;saveSearch&#125; from &#39;common&#x2F;js&#x2F;cache&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">export const saveSearchHistory &#x3D; function(&#123;commit, state&#125;, query) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  commit(types.SET_SEARCH_HISTORY, saveSearch(query))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>4.组件中调用vuex</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import &#123;mapActions&#125; from &#39;vuex&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; methods内:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    saveSearch() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">      this.saveSearchHistory(this.query)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    ...mapActions([</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      &#39;saveSearchHistory&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    ])</span></pre></td></tr></table></figure>
+
+<p>本文转载自：<a href="https://blog.csdn.net/qq_31393401/article/details/79299606" target="_blank" rel="noopener">https://blog.csdn.net/qq_31393401/article/details/79299606</a><br>vue列表进入详情页面返回时数据缓存<br>1.在app.vue中添加<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308175815600-1319641434.png" alt="img"><br>2.在router.index中添加<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308175843998-1477257556.png" alt="img"><br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308175904130-1893184226.png" alt="img"><br>3.在列表页面添加<br><img src="https://img2018.cnblogs.com/blog/1037363/201903/1037363-20190308175929554-386711755.png" alt="img"></p>
+<p>本文转载自：<a href="https://blog.csdn.net/yanby921005/article/details/80360822" target="_blank" rel="noopener">https://blog.csdn.net/yanby921005/article/details/80360822</a><br>vue.js生命周期钩子函数及缓存<br>在工作中用到最多的就是created,mounted,activated，deactivated.<br>由于系统需要缓存，使用了keep-alive</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;keep-alive :include&#x3D;&quot;&#x2F;keepalive[a-zA-Z]+&#x2F;&quot;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">           &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">       &lt;&#x2F;keep-alive&gt;</span></pre></td></tr></table></figure>
+
+<p>include 和 exclude 属性允许组件有条件地缓存。二者都可以用逗号分隔字符串或正则表达式来表示<br>匹配首先检查组件自身的 name 选项，如果 name 选项不可用，则匹配它的局部注册名称（父组件 components 选项的键值）。匿名组件不能被匹配。<br>//如果希望页面缓存，就在当前页的name属性，加上符合正则条件的name名称。不希望就加上不匹配的正则name名称。<br>created<br>实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。<br>//在刚进入页面的时候,会触发该函数的方法。只在页面刚开始加载时执行一次。<br>mounted<br>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。<br>该钩子在服务器端渲染期间不被调用。<br>//页面已经完成会执行该函数。<br>activated<br>keep-alive 组件激活时调用。<br>该钩子在服务器端渲染期间不被调用。<br>//当页面存在缓存的时候执行该函数。<br>deactivated<br>keep-alive 组件停用时调用。<br>该钩子在服务器端渲染期间不被调用。<br>//在页面结束时触发该方法，可清除掉滚动方法等缓存。</p>
+
+      
+       
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017-2020 progress-more</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
