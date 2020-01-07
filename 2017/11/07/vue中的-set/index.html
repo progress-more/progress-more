@@ -6,12 +6,27 @@
   <meta name="keywords" content="">
   <meta name="description" content="vue中的$set | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;index.html">
+<meta name="description" content="Vue实现组件缓存keep-alive是vue内置的一个组件，可以使被它包含的组件处于保留状态，或避免被重新渲染。 用法:运行结果描述：input输入框内，路由切换输入框内部的内容不会发生改变。在keep-alive标签内部添加 include：字符串或正则表达式。只有匹配的组件会被缓存 exclude： 字符串或正则表达式。任何匹配的组件都不会被缓存。结合router缓存部分页面：比较实用的例子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue实现组件缓存">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;03&#x2F;15&#x2F;vue%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E7%BC%93%E5%AD%98&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Vue实现组件缓存keep-alive是vue内置的一个组件，可以使被它包含的组件处于保留状态，或避免被重新渲染。 用法:运行结果描述：input输入框内，路由切换输入框内部的内容不会发生改变。在keep-alive标签内部添加 include：字符串或正则表达式。只有匹配的组件会被缓存 exclude： 字符串或正则表达式。任何匹配的组件都不会被缓存。结合router缓存部分页面：比较实用的例子">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161801138-1593275993.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161825140-824126357.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161903261-286357565.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164323560-1446188047.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164353442-1577233559.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164411754-1567799332.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164436206-1782478768.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175815600-1319641434.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175843998-1477257556.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175904130-1893184226.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175929554-386711755.png">
+<meta property="og:updated_time" content="2020-01-07T04:04:46.722Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161801138-1593275993.png">
 
 
 <link rel="icon" href="/img/default-avatar.jpg">
