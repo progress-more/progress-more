@@ -6,27 +6,19 @@
   <meta name="keywords" content="">
   <meta name="description" content="Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Vue实现组件缓存keep-alive是vue内置的一个组件，可以使被它包含的组件处于保留状态，或避免被重新渲染。 用法:运行结果描述：input输入框内，路由切换输入框内部的内容不会发生改变。在keep-alive标签内部添加 include：字符串或正则表达式。只有匹配的组件会被缓存 exclude： 字符串或正则表达式。任何匹配的组件都不会被缓存。结合router缓存部分页面：比较实用的例子">
+<meta name="description" content="vue+vant使用图片预览功能ImagePreview的问题打开图片预览功能后，如果不关闭预览的图片，同时改变路由的话，会发现即使路由改变了，预览的图片还在文档的最顶层显示，如图： 着实百思不其解，在调用vant 的 ImagePreview 图片预览组件中，没有html，有的只是引入ImagePreview 和js的调用。在这种情况下，如果是想自己添加任何方法都没法实现的，同时想在离开路由时的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue实现组件缓存">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;03&#x2F;15&#x2F;vue%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E7%BC%93%E5%AD%98&#x2F;index.html">
+<meta property="og:title" content="vant库-预览图片">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;11&#x2F;vant%E5%BA%93-%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Vue实现组件缓存keep-alive是vue内置的一个组件，可以使被它包含的组件处于保留状态，或避免被重新渲染。 用法:运行结果描述：input输入框内，路由切换输入框内部的内容不会发生改变。在keep-alive标签内部添加 include：字符串或正则表达式。只有匹配的组件会被缓存 exclude： 字符串或正则表达式。任何匹配的组件都不会被缓存。结合router缓存部分页面：比较实用的例子">
+<meta property="og:description" content="vue+vant使用图片预览功能ImagePreview的问题打开图片预览功能后，如果不关闭预览的图片，同时改变路由的话，会发现即使路由改变了，预览的图片还在文档的最顶层显示，如图： 着实百思不其解，在调用vant 的 ImagePreview 图片预览组件中，没有html，有的只是引入ImagePreview 和js的调用。在这种情况下，如果是想自己添加任何方法都没法实现的，同时想在离开路由时的">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161801138-1593275993.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161825140-824126357.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161903261-286357565.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164323560-1446188047.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164353442-1577233559.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164411754-1567799332.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308164436206-1782478768.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175815600-1319641434.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175843998-1477257556.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175904130-1893184226.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308175929554-386711755.png">
-<meta property="og:updated_time" content="2020-01-07T04:04:46.722Z">
+<meta property="og:image" content="c:%5CUsers%5Cliyanming%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578743387558.png">
+<meta property="og:image" content="c:%5CUsers%5Cliyanming%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578743941198.png">
+<meta property="og:image" content="c:%5CUsers%5Cliyanming%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578744768004.png">
+<meta property="og:updated_time" content="2020-01-11T12:14:28.237Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;img2018.cnblogs.com&#x2F;blog&#x2F;1037363&#x2F;201903&#x2F;1037363-20190308161801138-1593275993.png">
+<meta name="twitter:image" content="c:%5CUsers%5Cliyanming%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578743387558.png">
 
 
 <link rel="icon" href="/img/default-avatar.jpg">
@@ -99,7 +91,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(4)</small></div></li>
+    <li><div class="all active">全部文章<small>(5)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -111,7 +103,7 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="4">
+<input type="hidden" id="yelog_site_posts_number" value="5">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -150,6 +142,14 @@
 
     
     <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2018/08/11/vant%E5%BA%93-%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vant库-预览图片">vant库-预览图片</span>
+            <span class="post-date" title="2018-08-11 16:37:07">2018/08/11</span>
+        </a>
         
         <a  class=""
            href="/2017/06/01/codeCouple/"
